@@ -6,12 +6,11 @@ const path = require("path");
 if (require("electron-squirrel-startup")) app.quit();
 
 // Check for updates except for macOS
-if (process.platform != "darwin") require("update-electron-app")({ repo: "New-Club-Penguin/NewCP-App-Build" });
+if (process.platform != "darwin") require("update-electron-app")({ repo: "CPSpace/CPSpace-App-Build" });
 
 const ALLOWED_ORIGINS = [
-  "https://newcp.net",
-  "https://play.newcp.net",
-  "https://appeal.newcp.net",
+  "https://cpspace.net",
+  "https://play.cpspace.net",
 ];
 
 const pluginPaths = {
@@ -19,7 +18,6 @@ const pluginPaths = {
   darwin: path.join(path.dirname(__dirname), "lib/PepperFlashPlayer.plugin"),
   linux: path.join(path.dirname(__dirname), "lib/libpepflashplayer.so"),
 };
-
 
 if (process.platform === "linux") app.commandLine.appendSwitch("no-sandbox");
 const pluginName = pluginPaths[process.platform];
@@ -50,6 +48,8 @@ const createWindow = () => {
   });
 
   mainWindow = new BrowserWindow({
+    width: 1920,
+    height: 1080,
     autoHideMenuBar: true,
     useContentSize: true,
     show: false,
@@ -71,19 +71,26 @@ const createWindow = () => {
       event.preventDefault();
     }
   });
+
   app.on('before-quit', (e) => {
     mainWindow.destroy()
   })
+
   mainWindow.on("closed", () => (mainWindow = null));
 
-  mainWindow.webContents.session.clearHostResolverCache();
+  // Clear various types of caches
+  const clearCaches = async () => {
+    const session = mainWindow.webContents.session;
+    await session.clearCache();
+    await session.clearStorageData();
+    await session.clearHostResolverCache();
+    console.log("All caches cleared");
+  };
 
-  new Promise((resolve) =>
-    setTimeout(() => {
-      mainWindow.loadURL("https://newcp.net/");
-      resolve();
-    }, 5000)
-  );
+  // Clear caches before loading the URL
+  clearCaches().then(() => {
+    mainWindow.loadURL("https://play.cpspace.net");
+  });
 };
 
 const launchMain = () => {
@@ -96,7 +103,7 @@ const launchMain = () => {
       mainWindow.focus();
     }
   });
-  app.setAsDefaultProtocolClient("newcp");
+  app.setAsDefaultProtocolClient("cpspace");
 
   app.whenReady().then(() => {
     createWindow();

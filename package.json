@@ -1,8 +1,8 @@
 {
-  "name": "NewCP",
-  "productName": "NewCP",
-  "version": "1.6.1",
-  "description": "NewCP App",
+  "name": "cpspace",
+  "productName": "Club Penguin Space",
+  "version": "1.0.1",
+  "description": "Club Penguin Space",
   "main": "src/main.js",
   "scripts": {
     "start": "electron-forge start",
@@ -15,48 +15,56 @@
     "lint": "echo \"No linting configured\""
   },
   "keywords": [],
-  "author": "NewCP",
+  "author": "Club Penguin Space",
   "license": "MIT",
   "config": {
     "forge": {
       "packagerConfig": {
         "icon": "lib/icons/icon.icns"
       },
-      "makers": [{
+      "makers": [
+        {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "newcp",
-            "authors": "NewCP",
+            "name": "cpspace",
+            "authors": "Club Penguin Space",
             "loadingGif": "./src/assets/default-splash.gif",
             "setupIcon": "./lib/icons/icon.ico"
           }
-        }, {
+        },
+        {
           "name": "@electron-forge/maker-zip",
           "platforms": [
             "darwin"
           ]
-        }, {
+        },
+        {
           "name": "@electron-forge/maker-dmg",
           "config": {
             "format": "ULFO"
           }
-        }, {
+        },
+        {
           "name": "@electron-forge/maker-deb",
           "config": {}
-        }, {
+        },
+        {
           "name": "@electron-forge/maker-rpm",
           "config": {}
-        }, {
+        },
+        {
           "name": "@electron-forge/maker-flatpak",
           "config": {
-            "genericName": "NewCP",
-            "productName": "NewCP",
+            "genericName": "Club Penguin Space",
+            "productName": "Club Penguin Space",
             "categories": [
               "Game"
             ],
-            "modules": [{
+            "modules": [
+              {
                 "name": "zypak",
-                "sources": [{
+                "sources": [
+                  {
                     "type": "git",
                     "url": "https://github.com/refi64/zypak",
                     "tag": "v2022.04"
@@ -68,15 +76,15 @@
             "baseVersion": "22.08",
             "icon": "./lib/icons/icon.ico"
           }
-
         }
       ],
-      "publishers": [{
+      "publishers": [
+        {
           "name": "@electron-forge/publisher-github",
           "config": {
             "repository": {
-              "owner": "New-Club-Penguin",
-              "name": "NewCP-App-Build"
+              "owner": "CPSpace",
+              "name": "CPSpace-App-Build"
             },
             "prerelease": true
           }
@@ -85,7 +93,8 @@
     }
   },
   "build": {
-    "extraResources": [{
+    "extraResources": [
+      {
         "from": "./lib/",
         "to": "lib",
         "filter": [
@@ -93,12 +102,12 @@
         ]
       }
     ],
-    "appId": "com.newcp.ncp-app",
-    "productName": "NewCP",
+    "appId": "com.cpspace.cps-app",
+    "productName": "Club Penguin Space",
     "copyright": "Copyright © 2020 ${author}",
     "mac": {
       "icon": "./lib/icons/icon.icns",
-      "category": "lib.games.newcp"
+      "category": "lib.games.cpspace"
     },
     "win": {
       "icon": "./lib/icons/icon.png"
@@ -106,10 +115,11 @@
     "directories": {
       "buildResources": "lib"
     },
-    "protocols": [{
-        "name": "newcp",
+    "protocols": [
+      {
+        "name": "cpspace",
         "schemes": [
-          "newcp"
+          "cpspace"
         ]
       }
     ]
@@ -120,17 +130,18 @@
     "discord-rpc": "^4.0.1",
     "electron-prompt": "^1.6.0",
     "electron-squirrel-startup": "^1.0.0",
-    "update-electron-app": "^2.0.1",
-    "es5-ext": "<=0.10.53"
+    "es5-ext": "<=0.10.53",
+    "node-gyp": "^10.2.0",
+    "update-electron-app": "^2.0.1"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.54",
     "@electron-forge/maker-appx": "^6.0.0-beta.54",
     "@electron-forge/maker-deb": "^6.0.0-beta.54",
     "@electron-forge/maker-dmg": "^6.0.0-beta.54",
+    "@electron-forge/maker-flatpak": "^6.0.0-beta.64",
     "@electron-forge/maker-rpm": "^6.0.0-beta.54",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
-    "@electron-forge/maker-flatpak": "^6.0.0-beta.64",
     "@electron-forge/maker-zip": "^6.0.0-beta.54",
     "@electron-forge/publisher-github": "^6.0.0-beta.54",
     "electron": "11.1.1"
